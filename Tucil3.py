@@ -26,7 +26,7 @@ def getArrayFromFile(column, number, filename):
     return arr
 
 def getAdjMatrix(filename):  
-    # Make a Adjacency Matrix
+    # Make an Adjacency Matrix
     adjMatrix = []
     
     # Open and get number of nodes from the file
@@ -44,28 +44,29 @@ def getAdjMatrix(filename):
     
     return adjMatrix
 
-#node class
+# Node class
 class Node:
-    def __init__(self, name, x, y, neighbors):
+    def __init__(self, name, x, y):
         # User-Defined Constructor, no need default constructor
         self.name = name
         self.x = x
         self.y = y
-        self.neighbors = neighbors
+        self.neighbors = defaultdict(lambda: "No neighbors")
         
     def getDistanceBetween(self, otherNode):
         x = self.x - otherNode.x
         y = self.y - otherNode.y
         
-        return math.sqrt(sum(x ** 2 + y ** 2))
+        return math.sqrt(x ** 2 + y ** 2)
                 
     def printNode(self):
         # Get information from the node
         print("%s (%d, %d)" % (self.name, self.x, self.y))
         print("List of neighbors:")
         for key, value in self.neighbors.items():
-            print(key, ":", value)
-        
+            print(key.name, ":", value)
+
+# Graph Class 
 class Graph:
     def __init__(self, filename):
         self.nodeList = []
@@ -80,24 +81,31 @@ class Graph:
         
         # Append the nodes to nodeList
         for i in range (0, (numOfNodes)):
-            neighbors = self.getNeighbors(filename, i, nameArray)
-            self.nodeList.append(Node(nameArray[i], int(xArray[i]), int(yArray[i]), neighbors))
+            self.nodeList.append(Node(nameArray[i], int(xArray[i]), int(yArray[i])))
+        # Set neighbors
+        self.setNeighbors(filename)
     
-    @staticmethod # Decorators
-    def getNeighbors(filename, idxOfNodes, listOfNodes):
+    def setNeighbors(self, filename):
         # Add Neighbors from the list of nodes to the list of neighbors
         adjMatrix = getAdjMatrix(filename)
-        dictOfNeighbors = defaultdict(lambda: "No Nodes")
         
         # Get the corresponding row
-        weightRow = adjMatrix[idxOfNodes]
-        for i in range(len(weightRow)):
+        for i in range(len(self.nodeList)):
+            dictOfNeighbors = defaultdict(lambda: "No Nodes")
+            weightRow = adjMatrix[i]
+            for j in range(len(weightRow)):
             # Get the neighbors
-            if(weightRow[i] > 0):
-                # Append K: Name of neighbors, V: Edge Weight
-                dictOfNeighbors[listOfNodes[i]] = weightRow[i]
-        
-        return dictOfNeighbors
+                if(weightRow[j] == 1):
+                    # Append K: Name of neighbors, V: Edge Weight
+                    weight = self.nodeList[i].getDistanceBetween(self.nodeList[j])
+                    dictOfNeighbors[self.nodeList[j]] = weight
+            self.nodeList[i].neighbors = dictOfNeighbors
+    
+    def searchByName(self, name):
+        # Search a  node based on its name
+        for node in self.nodeList:
+            if(node.name == name):
+                return node
     
     def checkGraph(self):
         # Iterate Node List
@@ -108,7 +116,8 @@ class Graph:
 
 #-----------------------------------------------------------------------------#
 #main#
-filename = "testcase.txt"
-graph = Graph(filename)
+if(__name__ == "__main__"):
+    filename = "testcase.txt"
+    graph = Graph(filename)
 
-graph.checkGraph()
+    graph.checkGraph()
