@@ -3,6 +3,8 @@
 #Richard R. 13519185
 
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import networkx as nx
 import math
 
 def getNodeNumber(filename):
@@ -113,6 +115,28 @@ class Graph:
             print("Node %d: " % (i + 1))
             self.nodeList[i].printNode()
             print()
+            
+    def visualize(self):
+        # Create NX Graph
+        graph = nx.Graph()
+        
+        # Iterate each node
+        for node in self.nodeList:
+            # Add nodes with node names
+            graph.add_node(node.name)
+            
+            # Add edges if not exists in the edge list of NX Graph
+            for key, value in node.neighbors.items():
+                if(not graph.has_edge(node.name, key.name)):
+                    graph.add_edge(node.name, key.name, weight = round(value, 2))
+        # Create a layout
+        pos=nx.spring_layout(graph)
+        # Draw graph nodes
+        nx.draw(graph, pos, with_labels = True, font_weight = 'bold')
+        edge_weight = nx.get_edge_attributes(graph, 'weight') # Get graph edges weights
+        # Draw graph edges
+        nx.draw_networkx_edge_labels(graph, pos, edge_labels = edge_weight)
+        plt.show()
 
 #-----------------------------------------------------------------------------#
 #main#
@@ -120,4 +144,5 @@ if(__name__ == "__main__"):
     filename = "testcase.txt"
     graph = Graph(filename)
 
-    graph.checkGraph()
+    # graph.checkGraph()
+    graph.visualize()
