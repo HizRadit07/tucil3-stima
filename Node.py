@@ -1,5 +1,5 @@
 from collections import defaultdict
-import math
+from math import *
 
 # Node class
 class Node:
@@ -15,8 +15,26 @@ class Node:
         x = self.x - otherNode.x
         y = self.y - otherNode.y
         
-        return math.sqrt(x ** 2 + y ** 2)
-                
+        return sqrt(x ** 2 + y ** 2)
+    
+    def calculateHaversine(self, otherNode):
+        # Eartg Radius, Get Haversine in km
+        earthRadius = 6371
+        
+        # Convert Longitude and Latitude to Radians
+        lat1 = radians(self.x)
+        long1 = radians(self.y)
+        lat2 = radians(otherNode.x)
+        long2 = radians(otherNode.y)
+        # Get the difference
+        latDiff = lat2 - lat1
+        longDiff = long2 - long1
+        # Haversine
+        a = (sin(latDiff / 2)**2) + (cos(lat1) * cos(lat2) * sin(longDiff / 2)**2)
+        c = 2 * asin(sqrt(a))
+        
+        return(c* earthRadius)
+    
     def printNode(self):
         # Get information from the node
         print("%s (%d, %d)" % (self.name, self.x, self.y))

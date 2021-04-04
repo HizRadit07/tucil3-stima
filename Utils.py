@@ -58,7 +58,7 @@ def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
     count = 999999; #set count
     for key,value in myNode.neighbors.items():
         currentNode = myGraph.searchNodeByNode(key)
-        curCount = value + currentNode.getDistanceBetween(endNode)+currentValue; #check value + distance between nodes
+        curCount = value + currentNode.calculateHaversine(endNode)+currentValue; #check value + distance between nodes
         if (curCount<count): #if currentCount<count make currentMinimumNode = currentNode
             count = curCount
             curMinNode = currentNode

@@ -18,7 +18,7 @@ class Graph:
         
         # Append the nodes to nodeList
         for i in range (0, (numOfNodes)):
-            self.nodeList.append(Node(nameArray[i], int(xArray[i]), int(yArray[i])))
+            self.nodeList.append(Node(nameArray[i], float(xArray[i]), float(yArray[i])))
         # Set neighbors
         self.setNeighbors(filename)
     
@@ -34,7 +34,7 @@ class Graph:
             # Get the neighbors
                 if(weightRow[j] == 1):
                     # Append K: Name of neighbors, V: Edge Weight
-                    weight = self.nodeList[i].getDistanceBetween(self.nodeList[j])
+                    weight = self.nodeList[i].calculateHaversine(self.nodeList[j])
                     dictOfNeighbors[self.nodeList[j]] = weight
             self.nodeList[i].neighbors = dictOfNeighbors
     
