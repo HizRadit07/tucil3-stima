@@ -52,7 +52,7 @@ def isNeighbors(node1,node2):
     return False
 
 def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
-    #A Star implementation is here
+    #A Star implementation is here (hopefully, can change)
     #returns node with the minimum distance to goal from myNode
     curMinNode = myNode; #set current minimum node as self
     count = 999999; #set count
@@ -64,3 +64,9 @@ def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
             curMinNode = currentNode
     
     return curMinNode
+
+def is_in_queue(x,q):
+    for items in q.queue:
+        if (items[1].name==x.name):
+            return True
+    return False

@@ -9,6 +9,7 @@ class Node:
         self.x = x
         self.y = y
         self.neighbors = defaultdict(lambda: "No neighbors")
+        self.parent = []
         
     def getDistanceBetween(self, otherNode):
         x = self.x - otherNode.x
@@ -28,3 +29,17 @@ class Node:
             if (node.name==key.name):
                 return True
         return False
+
+    def addParent(self,parentNode):
+        self.parent.append(parentNode)
+
+    def sortNeighbors(self):
+        self.neighbors = sorted(self.neighbors.items(),key=lambda x:x[1],reverse=False)
+
+    def getParents(self):
+        if (len(self.parent)!=0):
+            return self.parent[0]
+        else:
+            return []
+    def hasParents(self):
+        return (len(self.parent)!=0)

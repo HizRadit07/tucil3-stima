@@ -4,6 +4,7 @@
 
 from flask import Flask, render_template
 from Graph import *
+from queue import PriorityQueue
 
 #-----------------------------------------------------------------------------#
 #main#
@@ -14,9 +15,10 @@ if(__name__ == "__main__"):
     #graph.checkGraph()
     
     # Visualize the graph
-    graph.visualize()
+    #graph.visualize()
     
-    solution = [] #array for solution
+    solution = PriorityQueue() #priority queue for solution 
+    solution2 = []
     startName = input("Please enter the start node: ") #get start name of the node
     goalName = input("Please enter the goal node: ") #get goal name of the node
     if (not graph.isNodeInGraphByName(startName) or (not graph.isNodeInGraphByName(goalName))): #exit immediately if the nodes are not in graph
@@ -25,29 +27,24 @@ if(__name__ == "__main__"):
 
     goalNode = graph.searchByName(goalName) #goalNode
     startNode = graph.searchByName(startName) #startNode
-    solution.append(graph.searchByName(startName)) #add startNode to the solution array
+    solution.put((0,startNode))
     i = 0
-    curNode = solution[i] #init current Node
-    curValue = 0 #init starting value as 0
-    
-    #myNode = getMinimumAStarNode(graph,curNode,goalNode);
-    #print (myNode.name)
-    while(not containsNode(solution,goalNode)):
-        curMinNode = getMinimumAStarNode(graph,curNode,goalNode,curValue) #initiate current Minimum Node
-        
-        for key,value in curNode.neighbors.items(): #check for each neighbors of current Node
-            curMinNode2 = getMinimumAStarNode(graph,key,goalNode,curValue)
-            if curMinNode2.getDistanceBetween(goalNode)<=curMinNode.getDistanceBetween(goalNode): #if it is found that the distance between their neighbors and goalnodes are smaller overall
-                curMinNode = key #change the curMinNode with the one found in neighbors
-                
-        solution.append(curMinNode); #append to solution
-        curValue = curNode.getDistanceBetween(curMinNode) #change curValue to the value of the path taken
+    curNode = solution.queue[i]
+    #print(curNode[1].name)
+    while(not is_in_queue(goalNode,solution)):
+        for key,value in curNode[1].neighbors.items():
+            if (not is_in_queue(key,solution)):
+                key.addParent(curNode[1])
+                solution.put((key.getDistanceBetween(goalNode)+value,key))
         i+=1
-        curNode = solution[i]
-
-    for items in solution:
-        print(items.name)
-
+        curNode = solution.queue[i]
+    
+    for items in solution.queue:
+        print(items[1].name,end= ' with parents: ')
+        if (items[1].hasParents()):
+            print(items[1].getParents().name)
+        else:
+            print(items[1].getParents())
 # Flask Try
 app = Flask(__name__)
 
