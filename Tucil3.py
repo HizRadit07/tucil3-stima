@@ -67,6 +67,11 @@ class Node:
         print("List of neighbors:")
         for key, value in self.neighbors.items():
             print(key.name, ":", value)
+    def containsNeighbor(self,node):
+        for key,value in self.neighbors:
+            if (node.name==key.name):
+                return True;
+        return False;
 
 # Graph Class 
 class Graph:
@@ -137,12 +142,87 @@ class Graph:
         # Draw graph edges
         nx.draw_networkx_edge_labels(graph, pos, edge_labels = edge_weight)
         plt.show()
+        
+    def isNodeInGraphByName(self,nodeName):
+        #find if a Node is in the graph by its name, returns true if yes
+        for n in self.nodeList:
+            if (n.name==nodeName):
+                return True;
+        return False;
+    
+    def searchNodeByNode(self,Node):
+        #find a Node by its name
+        for n in self.nodeList:
+            if (n.name==Node.name):
+                return n;
 
+
+def containsNode(arr,Node):
+    #procedure to check if an array contains a node
+    for item in arr:
+        if (item.name==Node.name and item.x==Node.x and item.y==Node.y):
+            return True;
+    return False;
+
+def isNeighbors(node1,node2):
+    #returns true if node1 and node2 are neighbors
+    for key,value in node1.neighbors.items():
+        if (key.name==node2.name and key.x==node2.x and key.y==node2.y):
+            return True;
+    return False;
+
+def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
+    #A Star implementation is here
+    #returns node with the minimum distance to goal from myNode
+    curMinNode = myNode; #set current minimum node as self
+    count = 999999; #set count
+    for key,value in myNode.neighbors.items():
+        currentNode = myGraph.searchNodeByNode(key)
+        curCount = value + currentNode.getDistanceBetween(endNode)+currentValue; #check value + distance between nodes
+        if (curCount<count): #if currentCount<count make currentMinimumNode = currentNode
+            count = curCount;
+            curMinNode = currentNode;
+    
+    return curMinNode
 #-----------------------------------------------------------------------------#
 #main#
 if(__name__ == "__main__"):
     filename = "testcase.txt"
     graph = Graph(filename)
+    
+    #graph.checkGraph()
+    #graph.visualize()
+    solution = [] #array for solution
+    startName = input("Please enter the start node: "); #get start name of the node
+    goalName = input("Please enter the goal node: "); #get goal name of the node
+    if (not graph.isNodeInGraphByName(startName) or (not graph.isNodeInGraphByName(goalName))): #exit immediately if the nodes are not in graph
+        print("sorry, the nodes you are looking for is not in the graph");
+        exit;
 
-    # graph.checkGraph()
-    graph.visualize()
+    goalNode = graph.searchByName(goalName); #goalNode
+    startNode = graph.searchByName(startName); #startNode
+    solution.append(graph.searchByName(startName)); #add startNode to the solution array
+    i = 0;
+    curNode = solution[i]; #init current Node
+    curValue = 0; #init starting value as 0
+    
+    #myNode = getMinimumAStarNode(graph,curNode,goalNode);
+    #print (myNode.name)
+    while(not containsNode(solution,goalNode)):
+        curMinNode = getMinimumAStarNode(graph,curNode,goalNode,curValue) #initiate current Minimum Node
+        
+        for key,value in curNode.neighbors.items(): #check for each neighbors of current Node
+            curMinNode2 = getMinimumAStarNode(graph,key,goalNode,curValue);
+            if curMinNode2.getDistanceBetween(goalNode)<=curMinNode.getDistanceBetween(goalNode): #if it is found that the distance between their neighbors and goalnodes are smaller overall
+                curMinNode = key; #change the curMinNode with the one found in neighbors
+                
+        solution.append(curMinNode); #append to solution
+        curValue = curNode.getDistanceBetween(curMinNode); #change curValue to the value of the path taken
+        i+=1
+        curNode = solution[i]
+
+    for items in solution:
+        print(items.name)
+        
+            
+    
