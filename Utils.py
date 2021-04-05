@@ -38,22 +38,22 @@ def getAdjMatrix(filename):
     return adjMatrix
 
 def containsNode(arr,Node):
-    #procedure to check if an array contains a node
+    # Procedure to check if an array contains a node
     for item in arr:
         if (item.name==Node.name and item.x==Node.x and item.y==Node.y):
             return True
     return False
 
 def isNeighbors(node1,node2):
-    #returns true if node1 and node2 are neighbors
+    # Returns true if node1 and node2 are neighbors
     for key,value in node1.neighbors.items():
         if (key.name==node2.name and key.x==node2.x and key.y==node2.y):
             return True
     return False
 
 def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
-    #A Star implementation is here (hopefully, can change)
-    #returns node with the minimum distance to goal from myNode
+    # A Star implementation is here (hopefully, can change)
+    # Returns node with the minimum distance to goal from myNode
     curMinNode = myNode; #set current minimum node as self
     count = 999999; #set count
     for key,value in myNode.neighbors.items():
@@ -66,12 +66,14 @@ def getMinimumAStarNode(myGraph, myNode, endNode,currentValue):
     return curMinNode
 
 def is_in_queue(x,q):
+    # Check if a node is in the queue
     for items in q.queue:
         if (items[1].name==x.name):
             return True
     return False
 
 def findInQueue(x,q):
+    # Find a node in the queue
     for items in q.queue:
         if(items[1].name==x.name):
             return items[1]

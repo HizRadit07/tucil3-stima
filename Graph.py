@@ -1,3 +1,4 @@
+# Libraries
 import matplotlib.pyplot as plt
 import networkx as nx
 from Utils import *
@@ -71,22 +72,24 @@ class Graph:
         edge_weight = nx.get_edge_attributes(graph, 'weight') # Get graph edges weights
         # Draw graph edges
         nx.draw_networkx_edge_labels(graph, pos, edge_labels = edge_weight)
+        print("Successfully read the file. Close the NetworkX Visualization to continue!")
         plt.show()
         
     def isNodeInGraphByName(self,nodeName):
-        #find if a Node is in the graph by its name, returns true if yes
+        # Find if a Node is in the graph by its name, returns true if yes
         for n in self.nodeList:
             if (n.name==nodeName):
                 return True
         return False
     
     def searchNodeByNode(self,Node):
-        #find a Node by its name
+        # Find a Node by its name
         for n in self.nodeList:
             if (n.name==Node.name):
                 return n
             
     def getPoints(self):
+        # Get each nodes informations
         points = []
         for node in self.nodeList:
             nodePoint = []
@@ -97,6 +100,7 @@ class Graph:
         return points
     
     def showAllPlaces(self):
+        # Show all nodes name
         print("List of available places: ")
         for node in self.nodeList:
             print(node.name)
