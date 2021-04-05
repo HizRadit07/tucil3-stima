@@ -55,11 +55,18 @@ if(__name__ == "__main__"):
         i+=1
         curNode = solution.queue[i]
     
-    for items in solution.queue:
-        print(items[1].name, end= ' with parents: ')
-        if (items[1].hasParents()):
-            print(items[1].getParents().name)
-        else:
-            print(items[1].getParents())
+    finalGoalNode = findInQueue(goalNode,solution)  #get the final goal node (with the parent)
+
+    #print(finalGoalNode.getParents())
+    while(finalGoalNode.hasParents()):
+        solution2.append(finalGoalNode)
+        finalGoalNode = findInQueue(finalGoalNode.getParents(),solution)
+    #endwhile
+    solution2.append(finalGoalNode)
+    solution2.reverse()
+    #solution2 is now the array containing the path for the graph
+
+    #for items in solution2: #for testing
+        #print(items.name)
             
     app.run(debug = False)

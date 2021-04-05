@@ -70,3 +70,9 @@ def is_in_queue(x,q):
         if (items[1].name==x.name):
             return True
     return False
+
+def findInQueue(x,q):
+    for items in q.queue:
+        if(items[1].name==x.name):
+            return items[1]
+    return None

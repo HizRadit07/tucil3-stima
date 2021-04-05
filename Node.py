@@ -61,3 +61,6 @@ class Node:
             return []
     def hasParents(self):
         return (len(self.parent)!=0)
+
+    def sameName(self,Node):
+        return (self.name==Node.name)
