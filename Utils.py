@@ -78,3 +78,22 @@ def findInQueue(x,q):
         if(items[1].name==x.name):
             return items[1]
     return None
+
+def toAdjacencyList(pathList):
+    # Change path to list of edges
+    edges = []
+    for i in range(len(pathList)):
+        if(i != (len(pathList) - 1)):
+            edge = []
+            edge.append(pathList[i].name)
+            edge.append(pathList[i + 1].name)
+            edges.append(edge)
+    return edges
+
+def checkIfInEdges(node1, node2, edges):
+    # Check if two nodes are in the edges list
+    for i in range(len(edges)):
+        if(edges[i][0] == node1 and edges[i][1] == node2 or 
+           edges[i][0] == node2 and edges[i][1] == node1):
+            return True
+    return False

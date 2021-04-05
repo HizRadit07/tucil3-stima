@@ -52,9 +52,10 @@ class Graph:
             self.nodeList[i].printNode()
             print()
             
-    def visualize(self):
+    def visualize(self, pathList):
         # Create NX Graph
         graph = nx.Graph()
+        path = toAdjacencyList(pathList)
         
         # Iterate each node
         for node in self.nodeList:
@@ -63,16 +64,22 @@ class Graph:
             
             # Add edges if not exists in the edge list of NX Graph
             for key, value in node.neighbors.items():
-                if(not graph.has_edge(node.name, key.name)):
-                    graph.add_edge(node.name, key.name, weight = round(value, 2))
+                # If the path list is not empty
+                # Check if the nodes are in the corresponding edges
+                # Give different colors for both case, highlight solution path
+                if(checkIfInEdges(node.name, key.name, path)):
+                    graph.add_edge(node.name, key.name, color = 'r', weight = round(value, 2))
+                elif(not graph.has_edge(node.name, key.name)):
+                    graph.add_edge(node.name, key.name, color = 'b', weight = round(value, 2))
         # Create a layout
         pos=nx.spring_layout(graph)
         # Draw graph nodes
-        nx.draw(graph, pos, with_labels = True, font_weight = 'bold')
+        edges,colors = zip(*nx.get_edge_attributes(graph, 'color').items())
+        nx.draw(graph, pos, edgelist=edges, edge_color=colors, with_labels = True, font_weight = 'bold')
         edge_weight = nx.get_edge_attributes(graph, 'weight') # Get graph edges weights
         # Draw graph edges
         nx.draw_networkx_edge_labels(graph, pos, edge_labels = edge_weight)
-        print("Successfully read the file. Close the NetworkX Visualization to continue!")
+        print("Successfully visualize the graph. Close the NetworkX Visualization to continue!")
         plt.show()
         
     def isNodeInGraphByName(self,nodeName):

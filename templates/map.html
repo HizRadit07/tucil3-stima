@@ -12,7 +12,6 @@
   
 <body style='margin: 0'>
 <div style="width: 100%; height: 100%" id="mapContainer"></div>
-
 <script type="text/javascript">
     // Init Points and Path in the map from Flask
     // Parse from Flask to JSON
@@ -24,8 +23,41 @@
     var path = JSON.parse('{{path|tojson}}');
 </script>
 <script type="text/javascript">
+    // Add marker to group
+    // On coordinate and with locationInfo as the information
+    function addMarkerToGroup(group, coordinate, locationInfo) {
+        var marker = new H.map.Marker(coordinate);
+        // Add custom pop-up information to the marker
+        marker.setData(locationInfo);
+        group.addObject(marker);
+    }
+
+    // Add clickable bubble on each marker
+    function addClickableBubble(map, points){
+        // Create a new group
+        var group = new H.map.Group();
+
+        // Add the group to the map
+        map.addObject(group);
+
+        // Use 'tap' event listener, that opens info bubble when clicked
+        group.addEventListener('tap', function (evt) {
+            // Event target is the marker itself, group is a parent event target
+            // For all objects that it contains
+            var bubble =  new H.ui.InfoBubble(evt.target.getGeometry(), {
+                // Read custom data
+                content: evt.target.getData()
+            });
+            // Show info bubble
+            ui.addBubble(bubble);
+        }, false);
+
+        // Add the marker for each nodes
+        points.forEach(node => {addMarkerToGroup(group, {lat: node[0], lng: node[1]}, node[2])});
+    }
+
     // Add Polyline to draw the path
-     function addPolylineToMap(map, path) {
+    function addPolylineToMap(map, path) {
         // Init Linestring
         var lineString = new H.geo.LineString();
 
@@ -84,9 +116,9 @@
     var ui = H.ui.UI.createDefault(map, defaultLayers);
 
     // Use the functions defined above to add properties to the map for visualizations
+    addClickableBubble(map, points);
     addPolylineToMap(map, path);
-    addMarkerToPoints(map, points);
-    addInfoBubble(map, points);
+    // addMarkerToPoints(map, points);
 
 </script>
 </body>
