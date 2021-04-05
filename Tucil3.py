@@ -18,14 +18,19 @@ def AStarSearch(graph, goalName, startName):
     i = 0
     curNode = solution.queue[i]
     #print(curNode[1].name)
-    while(not is_in_queue(goalNode, solution)):
+    while(not is_in_queue(goalNode, solution) and i<len(solution.queue)):
         for key,value in curNode[1].neighbors.items():
             if (not is_in_queue(key, solution)):
                 key.addParent(curNode[1])
-                solution.put((key.calculateHaversine(goalNode) + value, key))
+                solution.put((key.calculateHaversine(goalNode) + value, key)) #the a star portion of the code
         i+=1
+        if (i>=len(solution.queue)): #protection againts not found
+            break
         curNode = solution.queue[i]
     
+    if (i>=len(solution.queue)):
+        return []
+
     finalGoalNode = findInQueue(goalNode,solution)  #get the final goal node (with the parent)
 
     #print(finalGoalNode.getParents())
@@ -109,6 +114,10 @@ while(True):
             print("You entered same names. We cannot move!") # Same start and goal node
         else:
             solution = AStarSearch(graph, goalName, startName) # Find The Closest Path with A Star
+
+            if (len(solution)==0): #protection againts not found (returns empty array)
+                print ("NO PATH IS FOUND")
+                break
             
             # Print the path
             print("FOUND A PATH!")
