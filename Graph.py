@@ -85,3 +85,19 @@ class Graph:
         for n in self.nodeList:
             if (n.name==Node.name):
                 return n
+            
+    def getPoints(self):
+        points = []
+        for node in self.nodeList:
+            nodePoint = []
+            nodePoint.append(node.x)
+            nodePoint.append(node.y)
+            nodePoint.append(node.name)
+            points.append(nodePoint)
+        return points
+    
+    def showAllPlaces(self):
+        print("List of available places: ")
+        for node in self.nodeList:
+            print(node.name)
+        print()

@@ -6,41 +6,10 @@ from flask import Flask, render_template
 from queue import PriorityQueue
 from Graph import *
 
-# Flask Try
-app = Flask(__name__)
-
-@app.route('/', methods=['GET', 'POST'])
-def map():
-    # filename = "testcase.txt"
-    # graph = Graph(filename)
-    # points = []
-    # for node in graph.nodeList:
-    #     coordinates = []
-    #     coordinates.append(node.x)
-    #     coordinates.append(node.y)
-    #     points.append(coordinates)
-    
-    return render_template('map.html')
-
-#-----------------------------------------------------------------------------#
-#main#
-if(__name__ == "__main__"):
-    filename = "testcase.txt"
-    graph = Graph(filename)
-
-    #graph.checkGraph()
-    
-    # Visualize the graph
-    #graph.visualize()
-    
+def AStarSearch(graph, goalName, startName):
     solution = PriorityQueue() #priority queue for solution 
     solution2 = []
-    startName = input("Please enter the start node: ") #get start name of the node
-    goalName = input("Please enter the goal node: ") #get goal name of the node
-    if (not graph.isNodeInGraphByName(startName) or (not graph.isNodeInGraphByName(goalName))): #exit immediately if the nodes are not in graph
-        print("Sorry, the nodes you are looking for is not in the graph")
-        exit()
-
+    
     goalNode = graph.searchByName(goalName) #goalNode
     startNode = graph.searchByName(startName) #startNode
     solution.put((0, startNode))
@@ -65,8 +34,65 @@ if(__name__ == "__main__"):
     solution2.append(finalGoalNode)
     solution2.reverse()
     #solution2 is now the array containing the path for the graph
+    return solution2
 
-    #for items in solution2: #for testing
-        #print(items.name)
-            
-    app.run(debug = False)
+# Flask for HERE MAPS API
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def map():
+    # filename = "testcase.txt"
+    # graph = Graph(filename)
+    # points = []
+    # for node in graph.nodeList:
+    #     coordinates = []
+    #     coordinates.append(node.x)
+    #     coordinates.append(node.y)
+    #     points.append(coordinates)
+    points = graph.getPoints()
+    return render_template('map.html', points = points)
+
+#-----------------------------------------------------------------------------#
+# Call the main Program to run the program
+#main#
+
+foundFile = False
+
+while(not foundFile):
+    try:
+        filename = input("Enter the name of the file you want to read: ")
+        graph = Graph(filename)
+        foundFile = True
+    except:
+        print("No file found!\n")
+
+#graph.checkGraph()
+
+# Visualize the graph
+print("Successfully read the file. Close the NetworkX Visualization to Continue.")
+graph.visualize()
+
+while(True):
+    choice = int(input("Enter 1 to proceed to A*, 2 to exit the program: "))
+    
+    if(choice == 1):
+        print("Entering A* Process...\n")
+        graph.showAllPlaces()
+        startName = input("Please enter the start node: ") #get start name of the node
+        goalName = input("Please enter the goal node: ") #get goal name of the node
+
+        if (not graph.isNodeInGraphByName(startName) or (not graph.isNodeInGraphByName(goalName))): #exit immediately if the nodes are not in graph
+            print("Sorry, the node(s) you are looking for is not in the graph!")
+        elif(startName == goalName):
+            print("You entered same names. We cannot move!")
+        else:
+            solution = AStarSearch(graph, goalName, startName)
+
+            for items in solution: #for testing
+                print(items.name)
+                
+            points = graph.getPoints()
+            app.run(debug = False)
+    else:
+        print("Thank you! !_!")
+        exit()

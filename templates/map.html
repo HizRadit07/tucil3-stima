@@ -14,10 +14,11 @@
 
 <script type="text/javascript">
     // Init Points in the map
-    let points = [[-6.891594303998672, 107.61069133183867], [-6.893408313362439, 107.61061071943095], 
-              [-6.892874781942925, 107.61285890989026], [-6.8899937016911, 107.61295743619061],
-              [-6.887463546266129, 107.60874522288952], [-6.8902251567611845, 107.60685337297433],
-              [-6.893800613850137, 107.61374151753564], [-6.896287515528555, 107.60919509566038]]
+    // let points = [[-6.891594303998672, 107.61069133183867], [-6.893408313362439, 107.61061071943095], 
+    //           [-6.892874781942925, 107.61285890989026], [-6.8899937016911, 107.61295743619061],
+    //           [-6.887463546266129, 107.60874522288952], [-6.8902251567611845, 107.60685337297433],
+    //           [-6.893800613850137, 107.61374151753564], [-6.896287515528555, 107.60919509566038]]
+    var points = JSON.parse('{{points|tojson}}')
 </script>
 <script type="text/javascript">
     /**
@@ -31,7 +32,7 @@
         points.forEach(node => {lineString.pushPoint({lat: node[0], lng: node[1]})});
 
         map.addObject(new H.map.Polyline(
-            lineString, {style: {lineWidth: 4}}
+            lineString, {style: {lineWidth: 3}}
         ));
     }
 
@@ -50,14 +51,14 @@
     //Step 1: initialize communication with the platform
     // In your own code, replace variable window.apikey with your own apikey
     var platform = new H.service.Platform({
-        apikey: 'dpZtX9ddzsogVzMpyocZvGyD6irylKfAF_bdgU9HZrA'
+        apikey: 'O6p0lXfBGg9XH8480E9i_ga3s3peFP73YnFpLjl-WKc'
     });
     var defaultLayers = platform.createDefaultLayers();
 
     //Step 2: initialize a map - this map is centered over Europe
     var map = new H.Map(document.getElementById('mapContainer'), defaultLayers.vector.normal.map,
-        {center: {lat: -6.891594303998672, lng: 13.4},
-        zoom: 10,
+        {center: {lat: -6.891594303998672, lng: 107.61069133183867},
+        zoom: 16,
         pixelRatio: window.devicePixelRatio || 1
     });
     // add a resize listener to make sure that the map occupies the whole container
@@ -72,7 +73,7 @@
     var ui = H.ui.UI.createDefault(map, defaultLayers);
 
     // Now use the map as required...
-    // addPolylineToMap(map, points);
+    addPolylineToMap(map, points);
     addMarkerToPoints(map, points);
 
 </script>
