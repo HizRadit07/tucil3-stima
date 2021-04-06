@@ -28,7 +28,6 @@ def AStarSearch(graph, goalName, startName):
             if (not is_in_queue(key, solution)):
                 key.addParent(curNode[1])
                 solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
-                print(key.name)
                         
         curNode2 = solution.queue[0]
         for j in range (0,i): #guard for elements that are inserted before curNode
@@ -53,7 +52,6 @@ def AStarSearch(graph, goalName, startName):
     while(finalGoalNode.hasParents()):
         solution2.append(finalGoalNode)
         finalGoalNode = findInQueue(finalGoalNode.getParents(),solution)
-        print("anjing")
     #endwhile
     solution2.append(finalGoalNode)
     solution2.reverse()
