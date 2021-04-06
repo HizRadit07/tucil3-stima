@@ -1,3 +1,5 @@
+![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724256-5f60f400-971c-11eb-88d7-dbb051fe1023.png)
+![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724283-65ef6b80-971c-11eb-81e4-73320ed18445.png)
 ![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722765-ef9e3980-971a-11eb-89ab-8f772d5f32c0.png)
 # Tugas Kecil 3 Strategi Algoritma
 > Implementasi Algoritma A* untuk Menentukan Lintasan Terpendek
@@ -15,9 +17,12 @@
 Program ini merupakan program yang dibuat sebagai bentuk pencarian solusi dalam mencari jalur terpendek dari sebuah tempat menuju tempat lain. Permasalahan ini direpresentasikan dalam bentuk graf berbobot yang diterima dalam bentuk file dengan setiap simpulnya adalah tempat-tempat yang ada dan setiap sisinya adalah jarak Harvesine yang telah dihitung. Pencarian jalur terpendek dilakukan dengan menggunakan Algoritma A* dengan input berupa dua buah simpul, yang masing-masing simpul asal dan simpul tujuan. Program akan memberikan keluaran berupa jalur yang dihasilkan dari A* melalui CLI, serta memberikan pilihan visualisasi graf melalui NetworkX dan Matplotlib, atau dengan HERE Maps API melalui media Flask.
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
 ![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722826-fc229200-971a-11eb-9664-e959672f7446.png)
 Contoh graf yang dihasilkan
+![Screenshot (474)](https://user-images.githubusercontent.com/63536655/113724330-70aa0080-971c-11eb-8740-ffe46aed9427.png)
+Contoh penggunaan HERE Maps API
+![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724352-756eb480-971c-11eb-9be1-6e3e9fb27366.png)
+Contoh penggunaan HERE Maps API lain
 
 
 
