@@ -28,20 +28,20 @@ def AStarSearch(graph, goalName, startName):
             if (not is_in_queue(key, solution)):
                 key.addParent(curNode[1])
                 solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
-                
-        curNode2 = solution.queue[i]
-        
-        if (curNode2[1].name!=curNode[1].name): #guard againts just in case the element is inserted before curNode in the queue
-            for key,value in curNode2[1].neighbors.items():
+                print(key.name)
+                        
+        curNode2 = solution.queue[0]
+        for j in range (0,i): #guard for elements that are inserted before curNode
+            for key,value in (solution.queue[j])[1].neighbors.items():
                 if (not is_in_queue(key, solution)):
-                    key.addParent(curNode2[1])
-                    solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code            
-        else:    
-            i+=1
-            if (i>=len(solution.queue)): #protection againts not found
-                break
-            curNode = solution.queue[i]
-    
+                    key.addParent((solution.queue[j])[1])
+                    solution.put((key.calculateHaversine(goalNode)+ value, key))
+                    
+        i+=1
+        if (i>=len(solution.queue)): #protection againts not found
+            break
+        curNode = solution.queue[i]
+        
     # Heuristic, if iteration count is bigger than the size of the graph, no solution is available
     # Not found
     if (i>=len(solution.queue)):
@@ -53,10 +53,12 @@ def AStarSearch(graph, goalName, startName):
     while(finalGoalNode.hasParents()):
         solution2.append(finalGoalNode)
         finalGoalNode = findInQueue(finalGoalNode.getParents(),solution)
+        print("anjing")
     #endwhile
     solution2.append(finalGoalNode)
     solution2.reverse()
     #solution2 is now the array containing the path for the graph
+        
     return solution2
 
 # Read file and create a graph
@@ -128,6 +130,7 @@ graph = getGraphFromFile()
 
 # Visualize the full graph with NetworkX
 graph.visualize([])
+#graph.checkGraph()
 
 # Repeat until the user wants to exit the program
 while(True):
