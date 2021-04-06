@@ -133,7 +133,7 @@ def map():
 graph = getGraphFromFile()
 
 # Visualize the full graph with NetworkX
-#graph.visualize([])
+graph.visualize([])
 #graph.checkGraph()
 
 # Repeat until the user wants to exit the program
