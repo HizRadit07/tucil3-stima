@@ -17,9 +17,9 @@ Program ini merupakan program yang dibuat sebagai bentuk pencarian solusi dalam 
 * Contoh Visualisasi Graf Awal dengan NetworkX
 ![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722826-fc229200-971a-11eb-9664-e959672f7446.png)
 * Contoh Visualisasi Graf Hasil A* dengan NetworkX
-![image](https://user-images.githubusercontent.com/60037073/113726495-7d2f5880-971e-11eb-913f-6e88325e290a.png)
+![Capture](https://user-images.githubusercontent.com/60037073/113727505-62111880-971f-11eb-93a5-54e8abbc05ad.JPG)
 * Contoh Visualisasi Graf Hasil A* dengan NetworkX (2)
-![image](https://user-images.githubusercontent.com/60037073/113726780-b8318c00-971e-11eb-888c-5abd8aa2cfdf.png)
+![Capture](https://user-images.githubusercontent.com/60037073/113727592-781ed900-971f-11eb-90a7-43dad4b25e7c.JPG)
 * Contoh Visualisasi Graf dengan HERE Maps API
 ![Screenshot (474)](https://user-images.githubusercontent.com/63536655/113724330-70aa0080-971c-11eb-8740-ffe46aed9427.png)
 * Contoh Visualisasi Graf dengan HERE Maps API (2)
