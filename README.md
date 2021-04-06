@@ -14,14 +14,16 @@
 Program ini merupakan program yang dibuat sebagai bentuk pencarian solusi dalam mencari jalur terpendek dari sebuah tempat menuju tempat lain. Permasalahan ini direpresentasikan dalam bentuk graf berbobot yang diterima dalam bentuk file dengan setiap simpulnya adalah tempat-tempat yang ada dan setiap sisinya adalah jarak Harvesine yang telah dihitung. Pencarian jalur terpendek dilakukan dengan menggunakan Algoritma A* dengan input berupa dua buah simpul, yang masing-masing simpul asal dan simpul tujuan. Program akan memberikan keluaran berupa jalur yang dihasilkan dari A* melalui CLI, serta memberikan pilihan visualisasi graf melalui NetworkX dan Matplotlib, atau dengan HERE Maps API melalui media Flask.
 
 ## Screenshots
+* Contoh Visualisasi Graf Awal dengan NetworkX
 ![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722826-fc229200-971a-11eb-9664-e959672f7446.png)
-Contoh graf yang dihasilkan
+* Contoh Visualisasi Graf Hasil A* dengan NetworkX
+![image](https://user-images.githubusercontent.com/60037073/113726495-7d2f5880-971e-11eb-913f-6e88325e290a.png)
+* Contoh Visualisasi Graf Hasil A* dengan NetworkX (2)
+![image](https://user-images.githubusercontent.com/60037073/113726780-b8318c00-971e-11eb-888c-5abd8aa2cfdf.png)
+* Contoh Visualisasi Graf dengan HERE Maps API
 ![Screenshot (474)](https://user-images.githubusercontent.com/63536655/113724330-70aa0080-971c-11eb-8740-ffe46aed9427.png)
-Contoh penggunaan HERE Maps API
+* Contoh Visualisasi Graf dengan HERE Maps API (2)
 ![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724352-756eb480-971c-11eb-9be1-6e3e9fb27366.png)
-Contoh penggunaan HERE Maps API lain
-
-
 
 
 ## Technologies
@@ -36,7 +38,8 @@ Pastikan bahwa semua library digunakan di dalam program sudah terinstall dengan 
 * `pip install networkx`
 * `pip install matplotlib`
 * `pip install flask`
-* Jika masih mengalami kesalahan, lihat dokumentasi setiap instalasi library di [PyPi](https://pypi.org/)
+* Jika masih mengalami kesalahan, lihat dokumentasi setiap instalasi library di [PyPi](https://pypi.org/).
+* Untuk Python, unduh *installer* Python 3.x melalui situs resmi berikut, lalu ikuti petunjuk instalasi program. [Python](https://www.python.org/downloads/)
 
 ## Executing The Program
 * Lakukan pemindahan direktori program melalui Command Prompt atau Terminal dengan command `cd <nama_directory>` ke tempat penyimpanan kode program ini.
