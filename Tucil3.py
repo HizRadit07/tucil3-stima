@@ -10,9 +10,9 @@ from Graph import *
 def printqueue(q):
     for items in q.queue:
         if (not items[1].hasParents()):
-            print("nope")
+            print("No items in the queue!")
         else:
-            print (str(items[0])+ " node " + items[1].name+ " parent " + items[1].getParents().name)
+            print (str(items[0])+ " node " + items[1].name+ " with parent " + items[1].getParents().name)
 # A* Algorithm
 def AStarSearch(graph, goalName, startName):
     solution = PriorityQueue() #priority queue for solution
@@ -33,8 +33,6 @@ def AStarSearch(graph, goalName, startName):
         if (i>=len(solution.queue)): #protection againts not found
             break
         curNode = solution.queue[i]
-        
-
 
         for j in range (0,i): #guard for elements that are inserted before curNode
             for key,value in solution.queue[j][1].neighbors.items():
@@ -42,21 +40,17 @@ def AStarSearch(graph, goalName, startName):
                     key.addParent((solution.queue[j])[1])
                     solution.put((key.calculateHaversine(goalNode)+ value+key.getDistanceBetween(goalNode), key))
 
-
         for key,value in curNode[1].neighbors.items():
             if (not is_in_queue(key, solution)):
                 key.addParent(curNode[1])
                 solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
-
         
         solution.queue.sort()
-        
 
     # Heuristic, if iteration count is bigger than the size of the graph, no solution is available
     # Not found
     if (i>=len(solution.queue)):
         return []
-    
             
     finalGoalNode = findInQueue(goalNode,solution)  #get the final goal node (with the parent)
 
