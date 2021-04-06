@@ -112,3 +112,7 @@ class Graph:
         for node in self.nodeList:
             print(node.name)
         print()
+
+    def removeAllNodeParent(self):
+        for item in self.nodeList:
+            item.removeAllParent()

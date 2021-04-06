@@ -12,8 +12,10 @@ def AStarSearch(graph, goalName, startName):
     solution = PriorityQueue() #priority queue for solution
     with solution.mutex:
         solution.queue.clear() #make sure we always start on an empty queue
-    
-    solution2 = []
+
+    graph.removeAllNodeParent() #make sure all the nodes also has empty parents
+
+    solution2 = [] #array for solution 2
     
     goalNode = graph.searchByName(goalName) # goalNode
     startNode = graph.searchByName(startName) # startNode

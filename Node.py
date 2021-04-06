@@ -67,6 +67,10 @@ class Node:
     def hasParents(self):
         # Check if a node has any parent
         return (len(self.parent)!=0)
+    
+    def removeAllParent(self):
+        #remove all parent from node
+        self.parent.clear()
 
     def sameName(self,Node):
         # Check uf two node has same name
