@@ -28,19 +28,21 @@ def AStarSearch(graph, goalName, startName):
             if (not is_in_queue(key, solution)):
                 key.addParent(curNode[1])
                 solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
+                #print(key.name)
                         
-        curNode2 = solution.queue[0]
         for j in range (0,i): #guard for elements that are inserted before curNode
             for key,value in (solution.queue[j])[1].neighbors.items():
                 if (not is_in_queue(key, solution)):
                     key.addParent((solution.queue[j])[1])
                     solution.put((key.calculateHaversine(goalNode)+ value, key))
+                    #print(key.name+" 2")
+                    
                     
         i+=1
         if (i>=len(solution.queue)): #protection againts not found
             break
         curNode = solution.queue[i]
-        
+
     # Heuristic, if iteration count is bigger than the size of the graph, no solution is available
     # Not found
     if (i>=len(solution.queue)):
