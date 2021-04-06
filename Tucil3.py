@@ -9,7 +9,10 @@ from Graph import *
 
 # A* Algorithm
 def AStarSearch(graph, goalName, startName):
-    solution = PriorityQueue() #priority queue for solution 
+    solution = PriorityQueue() #priority queue for solution
+    with solution.mutex:
+        solution.queue.clear() #make sure we always start on an empty queue
+    
     solution2 = []
     
     goalNode = graph.searchByName(goalName) # goalNode
