@@ -1,3 +1,4 @@
+![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722765-ef9e3980-971a-11eb-89ab-8f772d5f32c0.png)
 # Tugas Kecil 3 Strategi Algoritma
 > Implementasi Algoritma A* untuk Menentukan Lintasan Terpendek
 
@@ -15,6 +16,11 @@ Program ini merupakan program yang dibuat sebagai bentuk pencarian solusi dalam 
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
+![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722826-fc229200-971a-11eb-9664-e959672f7446.png)
+Contoh graf yang dihasilkan
+
+
+
 
 ## Technologies
 * Flask
