@@ -1,6 +1,3 @@
-![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724256-5f60f400-971c-11eb-88d7-dbb051fe1023.png)
-![Screenshot (473)](https://user-images.githubusercontent.com/63536655/113724283-65ef6b80-971c-11eb-81e4-73320ed18445.png)
-![Screenshot (466)](https://user-images.githubusercontent.com/63536655/113722765-ef9e3980-971a-11eb-89ab-8f772d5f32c0.png)
 # Tugas Kecil 3 Strategi Algoritma
 > Implementasi Algoritma A* untuk Menentukan Lintasan Terpendek
 
