@@ -56,7 +56,7 @@ class Node:
 
     def sortNeighbors(self):
         # Sort neighbors based on Haversine Distance
-        self.neighbors = sorted(self.neighbors.items(), key = lambda x: x[1], reverse = False)
+        self.neighbors = {k: v for k, v in sorted(self.neighbors.items(), key=lambda item: item[1])}
 
     def getParents(self):
         # Get the parents of a node

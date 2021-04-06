@@ -7,6 +7,12 @@ from flask import Flask, render_template
 from queue import PriorityQueue
 from Graph import *
 
+def printqueue(q):
+    for items in q.queue:
+        if (not items[1].hasParents()):
+            print("nope")
+        else:
+            print (str(items[0])+ " node " + items[1].name+ " parent " + items[1].getParents().name)
 # A* Algorithm
 def AStarSearch(graph, goalName, startName):
     solution = PriorityQueue() #priority queue for solution
@@ -20,34 +26,38 @@ def AStarSearch(graph, goalName, startName):
     goalNode = graph.searchByName(goalName) # goalNode
     startNode = graph.searchByName(startName) # startNode
     solution.put((0, startNode))
-    i = 0
-    curNode = solution.queue[i]
+    i = -1
     #print(curNode[1].name)
     while(not is_in_queue(goalNode, solution) and i<len(solution.queue)):
-        for key,value in curNode[1].neighbors.items():
-            if (not is_in_queue(key, solution)):
-                key.addParent(curNode[1])
-                solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
-                #print(key.name)
-                        
-        for j in range (0,i): #guard for elements that are inserted before curNode
-            for key,value in (solution.queue[j])[1].neighbors.items():
-                if (not is_in_queue(key, solution)):
-                    key.addParent((solution.queue[j])[1])
-                    solution.put((key.calculateHaversine(goalNode)+ value, key))
-                    #print(key.name+" 2")
-                    
-                    
         i+=1
         if (i>=len(solution.queue)): #protection againts not found
             break
         curNode = solution.queue[i]
+        
+
+
+        for j in range (0,i): #guard for elements that are inserted before curNode
+            for key,value in solution.queue[j][1].neighbors.items():
+                if (not is_in_queue(key, solution)):
+                    key.addParent((solution.queue[j])[1])
+                    solution.put((key.calculateHaversine(goalNode)+ value+key.getDistanceBetween(goalNode), key))
+
+
+        for key,value in curNode[1].neighbors.items():
+            if (not is_in_queue(key, solution)):
+                key.addParent(curNode[1])
+                solution.put((key.calculateHaversine(goalNode)+ value, key)) #the a star portion of the code
+
+        
+        solution.queue.sort()
+        
 
     # Heuristic, if iteration count is bigger than the size of the graph, no solution is available
     # Not found
     if (i>=len(solution.queue)):
         return []
-
+    
+            
     finalGoalNode = findInQueue(goalNode,solution)  #get the final goal node (with the parent)
 
     #print(finalGoalNode.getParents())
@@ -129,7 +139,7 @@ def map():
 graph = getGraphFromFile()
 
 # Visualize the full graph with NetworkX
-graph.visualize([])
+#graph.visualize([])
 #graph.checkGraph()
 
 # Repeat until the user wants to exit the program
