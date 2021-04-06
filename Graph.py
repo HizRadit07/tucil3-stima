@@ -114,5 +114,6 @@ class Graph:
         print()
 
     def removeAllNodeParent(self):
+        # Reset all parents from all nodes in the graph
         for item in self.nodeList:
             item.removeAllParent()

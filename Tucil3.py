@@ -89,7 +89,7 @@ def visualize(graph, miscList):
         app.run(debug = False)
     elif(check == 3):
         # NetworkX and HERE
-        graph.visualize()
+        graph.visualize(miscList)
         print("Follow the local link to see HERE Map API Visualization!")
         print("Use CTRL-C to restart!\n")
         app.run(debug = False)
